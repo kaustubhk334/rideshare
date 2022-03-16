@@ -1,18 +1,27 @@
 pragma solidity ^0.5.16;
 
 contract RideShare {
-    struct Driver {
+    struct Ride {
         uint256 id;
-        string name;
+        string from;
+        string to;
     }
 
-    mapping(uint256 => Driver) public drivers;
-    uint256 public driversCount;
+    mapping(uint256 => Ride) public rides;
+    uint256 public ridesCount;
 
-    constructor() public {}
+    event NewRideEvent(uint256 indexed _rideid);
 
-    function addDriver(string _name) private {
-        driversCount++;
-        drivers[driversCount] = Driver(driversCount, _name);
+    constructor() public {
+        // addRide("blacksburg", "ashburn");
+        // addRide("new york", "boston");
+        // addRide("san fransisco", "los angeles");
+    }
+
+    function addRide(string memory _from, string memory _to) public {
+        ridesCount++;
+        rides[ridesCount] = Ride(ridesCount, _from, _to);
+
+        emit NewRideEvent(ridesCount);
     }
 }
